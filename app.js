@@ -1,19 +1,18 @@
 const express = require ("express")
 const checklistsRouter = require ("./src/routes/checklists")
+const rootRouter = require ("./src/routes/index")
+const path = require("path")
 require("./config/database")
 
 const app = express()
-
 app.use(express.json()) /*middleware que faz com que arquivos json sejam lidos como json e não como tipo texto*/ 
 
-app.get("/", (req, res) => {
-    res.send("<h1>Minha lista de tarefas</h1>")
-})
+app.use(express.static(path.join(__dirname, "public")))
 
-app.get("/json", (req, res) => { /*cria um arquivo no tipo json na url indicada*/
-    res.json({task: "Tarefa", done: true})
-})
+app.set("views", path.join(__dirname, "src/views"))
+app.set("view engine", "ejs")
 
+app.use("/", rootRouter)
 app.use("/checklist", checklistsRouter)
 
 app.listen(3001, () => {

@@ -1,7 +1,5 @@
 const express = require ("express")
-
 const Checklist = require("../models/checklist")
-
 const router = express.Router()
 
 router.get("/",  async (req, res) => {
@@ -46,7 +44,7 @@ router.put("/:id", async (req, res) => {
     }
 })
 
-router.remove("/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
     try {
         let checklist = await Checklist.findByIdAndRemove(req.params.id)
         res.status(200).json(checklist)
