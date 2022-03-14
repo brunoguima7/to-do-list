@@ -7,7 +7,7 @@ const methodOverride = require("method-override")
 require("./config/database")
 
 const app = express()
-app.use(express.json()) /*middleware que faz com que arquivos json sejam lidos como json e não como tipo texto*/ 
+app.use(express.json()) 
 app.use(express.urlencoded({extended: true}))
 app.use(methodOverride("_method", {methods: ["POST", "GET"]}))
 
@@ -20,6 +20,6 @@ app.use("/", rootRouter)
 app.use("/checklists", checklistsRouter)
 app.use("/checklists", taskRouter.ChecklistDependent)
 app.use("/tasks", taskRouter.simple)
-app.listen(3001, () => {
+app.listen(3001 /* altere para porta de freferência */, () => {
     console.log("Servidor foi iniciado")
 })
